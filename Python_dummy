@@ -1,0 +1,21 @@
+-- idus 콘텐츠 테이블 생성 
+
+
+DROP TABLE tbl_idus;
+CREATE TABLE tbl_idus(
+
+    icity VARCHAR2(500) NOT NULL,
+    title VARCHAR2(500) NOT NULL,
+    content VARCHAR2(500) NOT NULL
+   
+);
+
+DROP SEQUENCE seq_idus;
+CREATE SEQUENCE seq_idus
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+SELECT *FROM tbl_idus;
+
+commit;
