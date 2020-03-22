@@ -26,6 +26,7 @@ html = driver.page_source
 
 
 # for문을 이용해 3번 스크롤
+# 스크롤의 길이만큼 3번 반복 하여 스크롤 다운
 for i in range(3):
     driver.execute_script('window.scrollBy(0,1000)')
     time.sleep(2)
@@ -44,6 +45,12 @@ for one in section:
     city = c.text.strip().encode('euc-kr', 'ignore').decode('euc-kr')
     title = t.text.strip().encode('euc-kr', 'ignore').decode('euc-kr')
     content = cont.text.strip().encode('euc-kr', 'ignore').decode('euc-kr')
+    # 파이썬3는 기본 문자열이 Unicode 여서 한글 바로 사용가능
+    # 2Byte로 하나의 문자를 표현시 모두 Unicode라고 불릴수 잇음
+    # ecu-kr 유니코드가 사용되었는 데 웹크롤링된 Document에서
+    # 위 코덱으로 해석이 불가능한 문자가 껴있어서 변환필요
+    # encode : 유니코드 문자열을 enc-kr 문자열을 Byte로 변환 , 변환 불가능한 문자는 ignore(무시)
+    # decode : 변환된 Byte를 문자열로 반환
 
     query = "insert into tbl_idus VALUES(:city, :title, :content)"
     db = connection.cursor()
